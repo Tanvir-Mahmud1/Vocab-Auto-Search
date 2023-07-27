@@ -29,14 +29,8 @@ try:
 except:
     xlApp.Application.Quit() 
 
-# chrmDriverPath = "C:/Chrome Driver/chromedriver.exe"
-# # Here Chrome Driver is located.
-# browser = webdriver.Chrome(chrmDriverPath)
-# # This will open Chrome browser.
 
-
-# Above code is creatin problem for versions. So i used bellow code.
-
+# This set of code is for opening chrome browser.
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(options=options)
