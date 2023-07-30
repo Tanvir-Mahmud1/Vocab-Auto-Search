@@ -24,12 +24,13 @@ xlApp.Application.Quit()
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(options=options)
+# Check PATH Bellow......................................................................................................................
 os.environ['PATH'] += r"C:/Chrome Driver"
 
-
-xlFile = r"D:\Projects\Vocab Search\1500 Words_GC.xlsx"
+# Check xlfile Name Bellow......................................................................................................................
+xlfile = r"D:\Projects\Vocab-Auto-Search\1500_Words.xlsx"
 # [r''] converts string to a raw string.
-workbook = openpyxl.load_workbook(filename= xlFile)
+workbook = openpyxl.load_workbook(filename= xlfile)
 worksheet = workbook.active
 # or
 # worksheet = workbook['Sheet1']
@@ -52,10 +53,11 @@ for row in worksheet.iter_rows():
 
 driver.close()
 
-workbook.save(xlFile)
+workbook.save(xlfile)
 workbook.close()
 
 # These lines of code will open WorkBook (+WorkSheet) where searched data was saved.
-open_wb = xlApp.Workbooks.Open(xlFile)
-opnxl = open_wb.Worksheets('Sheet1') 
+open_wb = xlApp.Workbooks.Open(xlfile)
+# Check Sheet Name Bellow......................................................................................................................
+opnxl = open_wb.Worksheets('1500 Words')
 xlApp.Visible = True
