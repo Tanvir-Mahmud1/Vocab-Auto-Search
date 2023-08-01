@@ -33,25 +33,32 @@ workbook = openpyxl.load_workbook(filename= xlFile)
 worksheet = workbook.active                                  # or   worksheet = workbook['SheetName']
 word_Column = 'A'                                            # Here we can specify the column number where words are located to search.
 
-for cell in worksheet[word_Column]:
+##################################################################
+def bdword():
     try:
         word = cell.value
         driver.get("https://www.bdword.com/english-to-bengali-meaning-" + word)
         srcWord = driver.find_element(By.CSS_SELECTOR, "div.align_text2")         # We must have to use 'div' in ["div.align_text2"] which we got on hovering over the class name.
         resultWord = srcWord.text
-        nxtCol = cell.offset(row = 0, column = 1)            # This code will offset one Column.
+        nxtCol = cell.offset(row = 0, column = 1)                                 # This code will offset one Column.
         nxtCol.value = resultWord
-        print(resultWord)
-
+        # print(resultWord)
     except:
         pass
-    
+
+################################################################
+for cell in worksheet[word_Column]:
+    bdword()
+
+
 driver.close()
 
-workbook.save(xlFile)
+################################################################
+workbook.save(xlFile)                                        # Saves and closes the workbook which is opened by the driver.
 workbook.close()
 
-open_wb = xlApp.Workbooks.Open(xlFile)
+################################################################
+open_wb = xlApp.Workbooks.Open(xlFile)                       # Opens the excel workbook in user-view mode.
 # Check Sheet Name Bellow....................................................................................................................
 opnxl = open_wb.Worksheets('1500 Words') 
 xlApp.Visible = True
