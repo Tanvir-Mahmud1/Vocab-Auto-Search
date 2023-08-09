@@ -28,7 +28,7 @@ driver.maximize_window()
 
 # Below code will open excel file and read/write data on it.
 # Check xlfile Name Bellow...................................................................................................................
-xlFile = r"-----------------------------------------.xlsx"    # 'r' converts string to a 'raw string'.
+xlFile = r"F:\Projects\Vocab-Auto-Search\1500 Words.xlsx"    # 'r' converts string to a 'raw string'.
 workbook = openpyxl.load_workbook(filename= xlFile)
 worksheet = workbook.active                                  # or   worksheet = workbook['SheetName']
 word_Column = 'A'                                            # Here we can specify the column number where words are located to search.
@@ -60,5 +60,5 @@ workbook.close()
 ################################################################
 open_wb = xlApp.Workbooks.Open(xlFile)                       # Opens the excel workbook in user-view mode.
 # Check Sheet Name Bellow....................................................................................................................
-opnxl = open_wb.Worksheets('Worksheet Name--------------') 
+opnxl = open_wb.Worksheets('1500 Words') 
 xlApp.Visible = True
