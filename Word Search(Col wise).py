@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By                 # Without this, [By]
 import time                                                 # This is for using delays in this code.
 import openpyxl                                             # This is for working on excel file.
 
-import ChangeFilesLocation                                  # This will import File Names and Locations which must be changed from system to system.
+import ChangePart                                           # This will import File Names and Locations which must be changed from system to system.
 
 ####################        These set of code is for quiting Excel Aplication if already opened.
 import win32com.client as win32                             # [pip install pywin32] command is needed for this line of code.
@@ -22,14 +22,14 @@ except:
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(options=options)
-os.environ['PATH'] += ChangeFilesLocation.ChromeLocation
+os.environ['PATH'] += ChangePart.ChromeLocation
 driver.maximize_window()
 
 ####################        Below code will open excel file and read/write data on it.
-xlFile = ChangeFilesLocation.xlFileName                      # 'r' converts string to a 'raw string'.
+xlFile = ChangePart.xlFileName                              # 'r' converts string to a 'raw string'.
 workbook = openpyxl.load_workbook(filename= xlFile)
-worksheet = workbook.active                                  # or   worksheet = workbook['SheetName']
-word_Column = ChangeFilesLocation.Column_Num                 # Here we can specify the column number where words are located to search.
+worksheet = workbook.active                                 # or   worksheet = workbook['SheetName']
+word_Column = ChangePart.Column_Num                         # Here we can specify the column number where words are located to search.
 
 
 ###################################################
@@ -58,5 +58,5 @@ workbook.close()
 
 ####################     Opens the excel workbook in user-view mode.
 open_wb = xlApp.Workbooks.Open(xlFile)
-opnxl = open_wb.Worksheets(ChangeFilesLocation.activeWorkSheet) 
+opnxl = open_wb.Worksheets(ChangePart.activeWorkSheet) 
 xlApp.Visible = True
