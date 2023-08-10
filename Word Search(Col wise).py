@@ -1,6 +1,4 @@
-# These codes needs moderation as per your need. So go through the code and and modify it accordingly.
-# To work this code properly, install and import bellow modules and [Very Very Important]=> Check "Chrome Driver" and "word" file path + location.
-# [pip install openpyxl, pywin32]
+# To work this code properly, install and import necessary modules.
 
 import os
 from selenium import webdriver
@@ -9,7 +7,9 @@ from selenium.webdriver.common.by import By                 # Without this, [By]
 import time                                                 # This is for using delays in this code.
 import openpyxl                                             # This is for working on excel file.
 
-# These set of code is for quiting Excel Aplication if already opened.
+import ChangeFilesLocation                                  # This will import File Names and Locations which must be changed from system to system.
+
+####################        These set of code is for quiting Excel Aplication if already opened.
 import win32com.client as win32                             # [pip install pywin32] command is needed for this line of code.
 xlApp = win32.gencache.EnsureDispatch('Excel.Application')  # Quits Excel app if already open else skips the process (if not opened).
 try:                                                        # This [try & except] clause saves + closes excel app if not saved else closes excel if no need of 'save'.
@@ -18,22 +18,21 @@ try:                                                        # This [try & except
 except:
     xlApp.Application.Quit() 
 
-# These sets of code is for opening chrome browser.
+####################        These sets of code is for opening chrome browser.
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(options=options)
-# Check PATH location Bellow.................................................................................................................
-os.environ['PATH'] += r"C:/Chrome Driver"
+os.environ['PATH'] += ChangeFilesLocation.ChromeLocation
 driver.maximize_window()
 
-# Below code will open excel file and read/write data on it.
-# Check xlfile Name Bellow...................................................................................................................
-xlFile = r"F:\Projects\Vocab-Auto-Search\1500 Words.xlsx"    # 'r' converts string to a 'raw string'.
+####################        Below code will open excel file and read/write data on it.
+xlFile = ChangeFilesLocation.xlFileName                      # 'r' converts string to a 'raw string'.
 workbook = openpyxl.load_workbook(filename= xlFile)
 worksheet = workbook.active                                  # or   worksheet = workbook['SheetName']
-word_Column = 'A'                                            # Here we can specify the column number where words are located to search.
+word_Column = ChangeFilesLocation.Column_Num                 # Here we can specify the column number where words are located to search.
 
-##################################################################
+
+###################################################
 def bdword():
     try:
         word = cell.value
@@ -46,19 +45,18 @@ def bdword():
     except:
         pass
 
-################################################################
+###################################################
 for cell in worksheet[word_Column]:
     bdword()
 
 
 driver.close()
 
-################################################################
-workbook.save(xlFile)                                        # Saves and closes the workbook which is opened by the driver.
+####################     Saves and closes the workbook which is opened by the driver.
+workbook.save(xlFile)
 workbook.close()
 
-################################################################
-open_wb = xlApp.Workbooks.Open(xlFile)                       # Opens the excel workbook in user-view mode.
-# Check Sheet Name Bellow....................................................................................................................
-opnxl = open_wb.Worksheets('1500 Words') 
+####################     Opens the excel workbook in user-view mode.
+open_wb = xlApp.Workbooks.Open(xlFile)
+opnxl = open_wb.Worksheets(ChangeFilesLocation.activeWorkSheet) 
 xlApp.Visible = True
