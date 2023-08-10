@@ -4,4 +4,4 @@
 ChromeLocation = r"C:/Chrome Driver"
 xlFileName = r"F:\Projects\Vocab-Auto-Search\1500 Words.xlsx"
 activeWorkSheet = '1500 Words'
-Column_Num = 'A'
+word_col = 'A'

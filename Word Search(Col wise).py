@@ -29,25 +29,24 @@ driver.maximize_window()
 xlFile = ChangePart.xlFileName                              # 'r' converts string to a 'raw string'.
 workbook = openpyxl.load_workbook(filename= xlFile)
 worksheet = workbook.active                                 # or   worksheet = workbook['SheetName']
-word_Column = ChangePart.Column_Num                         # Here we can specify the column number where words are located to search.
+word_Column = ChangePart.word_col                           # Here we can specify the column number where words are located to search.
 
 
 ###################################################
 def bdword():
-    try:
-        word = cell.value
-        driver.get("https://www.bdword.com/english-to-bengali-meaning-" + word)
-        srcWord = driver.find_element(By.CSS_SELECTOR, "div.align_text2")         # We must have to use 'div' in ["div.align_text2"] which we got on hovering over the class name.
-        resultWord = srcWord.text
-        nxtCol = cell.offset(row = 0, column = 1)                                 # This code will offset one Column.
-        nxtCol.value = resultWord
-        # print(resultWord)
-    except:
-        pass
+    driver.get("https://www.bdword.com/english-to-bengali-meaning-" + word)
+    srch_bdword = driver.find_element(By.CSS_SELECTOR, "div.align_text2")         # We must have to use 'div' in ["div.align_text2"] which we got on hovering over the class name.
+    cell.offset(row = 0, column = 1).value = srch_bdword.text                     # [.offset] method will move to next Column, [.value] will paste the word to next column, [.text] will convert searched word to text.
+
 
 ###################################################
 for cell in worksheet[word_Column]:
-    bdword()
+    word = cell.value
+    try:
+        bdword()
+        
+    except:
+        pass
 
 
 driver.close()
