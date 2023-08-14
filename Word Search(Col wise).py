@@ -38,12 +38,35 @@ def bdword():
     srch_bdword = driver.find_element(By.CSS_SELECTOR, "div.align_text2")         # We must have to use 'div' in ["div.align_text2"] which we got on hovering over the class name.
     cell.offset(row = 0, column = 1).value = srch_bdword.text                     # [.offset] method will move to next Column, [.value] will paste the word to next column, [.text] will convert searched word to text.
 
-
+def eng2ban():
+    driver.get("https://www.english-bangla.com/dictionary/" + word)
+    srch_bdword = driver.find_element(By.CSS_SELECTOR, "span.format1")
+    cell.offset(row = 0, column = 2).value = srch_bdword.text
+    
+def OED():
+    driver.get("https://www.oed.com/search/dictionary/?scope=Entries&q=" + word)
+    srch_bdword = driver.find_element(By.CSS_SELECTOR, "div.snippet")
+    cell.offset(row = 0, column = 3).value = srch_bdword.text
+    
+def Merrium():
+    driver.get("https://www.merriam-webster.com/dictionary/" + word)
+    srch_bdword = driver.find_element(By.CSS_SELECTOR, "div.vg")
+    cell.offset(row = 0, column = 4).value = srch_bdword.text
+    
+def collings():
+    driver.get("https://www.collinsdictionary.com/dictionary/english/" + word)
+    srch_bdword = driver.find_element(By.CSS_SELECTOR, "div.hom")
+    cell.offset(row = 0, column = 5).value = srch_bdword.text
+    
 ###################################################
 for cell in worksheet[word_Column]:
     word = cell.value
     try:
-        bdword()
+        # bdword()
+        eng2ban()
+        # OED()
+        # Merrium()
+        # collings()
         
     except:
         pass
