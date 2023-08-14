@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys             # This will alow us 
 from selenium.webdriver.common.by import By                 # Without this, [By] in [browser.find_element(By.CSS_SELECTOR] will not work.
 import time                                                 # This is for using delays in this code.
 import openpyxl                                             # This is for working on excel file.
+from selenium.common.exceptions import NoSuchWindowException # This is for handling exceptions when browser is closed.
 
 import ChangePart                                           # This will import File Names and Locations which must be changed from system to system.
 
@@ -63,16 +64,20 @@ for cell in worksheet[word_Column]:
     word = cell.value
     try:
         # bdword()
-        eng2ban()
+        # eng2ban()
         # OED()
         # Merrium()
-        # collings()
+        collings()
         
-    except:
-        pass
-
-
-driver.close()
+    except (Exception, TypeError, NoSuchWindowException):
+        print("An Error occurred")
+    
+if len(driver.window_handles) == 0:
+    pass
+elif Exception:
+    driver.close()
+else:
+    driver.close()
 
 ####################     Saves and closes the workbook which is opened by the driver.
 workbook.save(xlFile)
