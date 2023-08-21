@@ -60,23 +60,24 @@ def collings():
     cell.offset(row = 0, column = 5).value = srch_bdword.text
     
 ###################################################
-for cell in worksheet[word_Column]:
-    word = cell.value
-    try:
-        # bdword()
-        # eng2ban()
-        # OED()
-        # Merrium()
-        collings()
+try:
+    for cell in worksheet[word_Column]:
+        word = cell.value
+        try:
+            # bdword()
+            # eng2ban()
+            # OED()
+            # Merrium()
+            collings()
+            
+        except NoSuchWindowException:
+            print("Browser window was closed by clicking.")
+            break  # Exit the loop if browser is closed
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            break  # Exit the loop on any other exception
         
-    except (Exception, TypeError, NoSuchWindowException):
-        print("An Error occurred")
-    
-if len(driver.window_handles) == 0:
-    pass
-elif Exception:
-    driver.close()
-else:
+finally:
     driver.close()
 
 ####################     Saves and closes the workbook which is opened by the driver.
