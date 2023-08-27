@@ -4,20 +4,21 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys             # This will alow us to use 'Enter'/'ESC' (any Keyboard keys) in automation.
 from selenium.webdriver.common.by import By                 # Without this, [By] in [browser.find_element(By.CSS_SELECTOR] will not work.
-import time                                                 # This is for using delays in this code.
+# import time                                                 # This is for using delays in this code.
 import openpyxl                                             # This is for working on excel file.
 from selenium.common.exceptions import NoSuchWindowException # This is for handling exceptions when browser is closed.
-
+# import win32com.client as win32                             # [pip install pywin32] command is needed for this line of code.
+import comtypes.client
 import ChangePart                                           # This will import File Names and Locations which must be changed from system to system.
 
 ####################        These set of code is for quiting Excel Aplication if already opened.
-import win32com.client as win32                             # [pip install pywin32] command is needed for this line of code.
-xlApp = win32.gencache.EnsureDispatch('Excel.Application')  # Quits Excel app if already open else skips the process (if not opened).
-try:                                                        # This [try & except] clause saves + closes excel app if not saved else closes excel if no need of 'save'.
-    xlApp.ActiveWorkbook.Save()
-    xlApp.Application.Quit() 
-except:
-    xlApp.Application.Quit() 
+# xlApp = win32.gencache.EnsureDispatch('Excel.Application')  # Quits Excel app if already open else skips the process (if not opened).
+xlApp = comtypes.client.CreateObject('Excel.Application')
+# try:                                                        # This [try & except] clause saves + closes excel app if not saved else closes excel if no need of 'save'.
+#     xlApp.ActiveWorkbook.Save()
+#     xlApp.Application.Quit() 
+# except:
+#     xlApp.Application.Quit() 
 
 ####################        These sets of code is for opening chrome browser.
 options = webdriver.ChromeOptions()
@@ -65,10 +66,10 @@ try:
         word = cell.value
         try:
             # bdword()
-            # eng2ban()
+            eng2ban()
             # OED()
             # Merrium()
-            collings()
+            # collings()
             
         except NoSuchWindowException:
             print("Browser window was closed by clicking.")
