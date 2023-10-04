@@ -24,6 +24,7 @@ import os
 def chrome_driver(Driver_Location):
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
+    # options.add_argument("--start-minimized")       # For minimized window.
     driver = webdriver.Chrome(options=options)
     os.environ['PATH'] += Driver_Location
     return driver
@@ -31,6 +32,7 @@ def chrome_driver(Driver_Location):
 def firefox_driver(Driver_Location):
     options = webdriver.FirefoxOptions()
     options.add_argument("--detach")
+    # options.add_argument("--start-minimized")       # For minimized window.
     driver = webdriver.Firefox(options=options)
     os.environ['PATH'] += Driver_Location
     return driver
@@ -38,6 +40,34 @@ def firefox_driver(Driver_Location):
 def edge_driver(Driver_Location):
     options = webdriver.EdgeOptions()
     options.add_argument("--detach")
+    # options.add_argument("--start-minimized")       # For minimized window.
     driver = webdriver.Edge(options=options)
     os.environ['PATH'] += Driver_Location
     return driver
+
+
+
+
+
+
+
+def window_size():
+    driver = webdriver.Chrome()
+    
+    # Get the window size
+    window_width = driver.execute_script("return window.innerWidth;")
+    window_height = driver.execute_script("return window.innerHeight;")
+
+    print(f"Window Size: {window_width}x{window_height}")
+
+
+    # Get the screen size
+    screen_width = driver.execute_script("return window.screen.width;")
+    screen_height = driver.execute_script("return window.screen.height;")
+    
+    print(f"Screen Size: {screen_width}x{screen_height}")
+    
+    driver.quit()
+
+
+# window_size()
