@@ -1,12 +1,12 @@
 
-# This module is totally independent, only import is "browseSelect". Variable part is separated, so don't worry.
+# This module is totally independent of changes needed in additional files. Variable part is separated bellow, so don't worry.
 
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchWindowException, NoSuchElementException, InvalidSessionIdException 
 # import comtypes.client
 import openpyxl
 
 import Additional
+from exception import handle_exceptions
 
 
 # Chage Part-------------------------------------------------------------------------------------
@@ -14,8 +14,8 @@ Driver_Location = r"C:\BrowserDriver\msedgedriver.exe"
 excel_file_path = r"F:\Projects\Vocab-Auto-Search\xlFiles\1500 Words_vocabulary.xlsx"
 sheet_name = '1500 Words'
 word_col = 'B'
-start_row = 1493
-end_row = 1495
+start_row = 1450
+end_row = 1450
 col_offset_short = 1
 col_offset_long = 2
 # ------------------------------------------------------------------------------------------------
@@ -47,22 +47,16 @@ for row in range(start_row, end_row+1):
         cell.offset(row = 0, column= col_offset_long).value = src_word.text
 
         driver.close()
-    
-    except NoSuchElementException:
-        print(f'[{row}:{cell_value}] is not found in this dictionary.')
         
-    except NoSuchWindowException:
-        print("Browser window is closed by user.")
-
-    except InvalidSessionIdException:
-        print(f"An error occurred: {InvalidSessionIdException}")
-
+        
     except Exception as e:
-        print(f"An error occurred: {e}")
+        handle_exceptions(row, cell_value, e)
+        
         
     finally:
         start_row = row + 1
-
+        
+        
 try:
     workbook.save(excel_file_path)
     workbook.close()
