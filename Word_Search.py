@@ -26,8 +26,11 @@ try:
         # You can specify the range of rows and columns to iterate over using the [min_row, max_row, min_col, max_col, values_only] parameters.
         for cell in row:
             try:
+                print(f'[{str(cell.row)}:{cell.value}] is searching...')
+                
                 Dict_word = ChangePart.dictionary_name(cell.value)                                  # This code will get the cell value and search in specific dictionary.
                 cell.offset(row = 0, column = ChangePart.offset_output).value = Dict_word.text      # [.offset] method will move to next Column, [.value] will paste the word to next column, [.text] will convert searched word to text.
+                
                 
             except NoSuchElementException:
                 print(f'Word "{cell.value}" is not found in this dictionary.')

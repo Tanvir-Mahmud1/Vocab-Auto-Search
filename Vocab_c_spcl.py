@@ -11,11 +11,11 @@ from exception import handle_exceptions
 
 # Chage Part-------------------------------------------------------------------------------------
 Driver_Location = r"C:\BrowserDriver\msedgedriver.exe"
-excel_file_path = r"F:\Projects\Vocab-Auto-Search\xlFiles\1500 Words_vocabulary.xlsx"
-sheet_name = '1500 Words'
-word_col = 'B'
-start_row = 1450
-end_row = 1450
+excel_file_path = r"C:\Users\WALTON\OneDrive\Desktop\Book1.xlsx"
+sheet_name = 'Sheet1'
+word_col = 'A'
+start_row = 338
+end_row = 581
 col_offset_short = 1
 col_offset_long = 2
 # ------------------------------------------------------------------------------------------------
